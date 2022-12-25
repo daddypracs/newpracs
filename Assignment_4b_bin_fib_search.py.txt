@@ -1,0 +1,105 @@
+
+from numpy import zeros
+
+class std_attendance : 
+    def get_attendance (self) :
+        self.n = int(input("Enter no of Students : "))
+        self.attendance = zeros((self.n))
+        print("Enter roll numbers of present students : ")
+        for i in range (self.n) :
+            self.attendance[i] = int(input())
+
+    def binary_search(self, elm ) :
+        start = 0 
+        end = self.n 
+        mid = int( (start + end)/2)
+        flag = False 
+
+        while (mid != 0 and mid != self.n - 1):
+            if (self.attendance[mid] == elm) :
+                flag = True
+                break 
+                
+            elif ( elm < self.attendance[mid] ):
+                start = start
+                end = mid - 1
+                mid = int((start + mid)/2)
+
+            elif (elm > self.attendance[mid] ):
+                start = mid + 1
+                end = end 
+                mid = int((start + end) / 2)
+        if flag == True : 
+            return (True, mid)
+        else : 
+            return (False)
+
+    def fibonacci_search(self, elm ):
+        size = self.n 
+        fib_m2 = 0 
+        fib_m1 = 1 
+        fib_m = fib_m1 + fib_m2
+
+        while ( fib_m < size ):
+            fib_m2 = fib_m1 
+            fib_m1 = fib_m
+            fib_m = fib_m1 + fib_m2  
+
+        mid = fib_m2 
+
+        flag = False 
+        start = 0 
+
+        while ( fib_m >= 1 ):
+
+            if ( self.attendance[mid] == elm ):
+                flag = True
+                break 
+
+            elif ( elm < self.attendance[mid] ) :
+                fib_m = fib_m2 
+                fib_m1 = fib_m1 - fib_m2 
+                fib_m2 = fib_m - fib_m1
+                mid = start + fib_m2
+
+            elif ( elm > self.attendance[mid] ):
+                start = mid
+                fib_m = fib_m1
+                fib_m1 = fib_m2 
+                fib_m2 = fib_m - fib_m1 
+                mid  = start + fib_m2
+        
+        return flag
+
+print("-----------------Menu-----------------")
+print("Binary Search : 1")
+print("Fibonacci Search : 2")
+
+choice = 'y'
+
+while ( choice == 'y') :
+    att_tracker = std_attendance()
+    att_tracker.get_attendance()
+
+    elm = int(input("Enter roll no you want to  check : "))
+    code = int(input("Enter the type of search you want to perform : "))
+
+    if code == 1 :
+        if att_tracker.binary_search(elm)[0] == True : 
+            print("Student was prsent") 
+        else : 
+            print('Student was absent')
+    
+    elif code == 2 : 
+        if att_tracker.fibonacci_search(elm) == True :
+            print("Student was prsent")
+        else : 
+            print("Student was absent")
+
+    else : 
+        print("Invalid code input")
+    
+    choice = input("Do you want to continue ? ")
+
+    
+

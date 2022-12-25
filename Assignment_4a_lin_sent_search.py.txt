@@ -1,0 +1,76 @@
+
+from numpy import * 
+
+class std_attendance : 
+    
+    def get_attendance(self) :
+        n = int(input("Enter no of students who attended program : "))
+        self.n = n 
+        self.present_rolls = zeros((n))
+        print("Enter roll no of present students : ")
+        for i in range (n) :
+            self.present_rolls[i] = int(input())
+    
+    def linear_serch(self, elm):
+        flag = False 
+        index = None
+        for i in range (self.n) :
+            if ( self.present_rolls[i] == elm) :
+                flag = True
+                index = i 
+                break
+            else : 
+                continue
+        if (flag == True) :
+            return (flag, index)
+        else :
+            return False 
+        
+    def sentinel_search(self, elm ) :
+        new_arr = zeros((self.n+1))
+        for i in range (self.n) :
+            new_arr[i] = self.present_rolls[i]
+        new_arr[self.n] = elm 
+
+        index = None 
+
+        for i in range (self.n+1) :
+            if ( new_arr[i] == elm ):
+                index = i 
+                break 
+            else  :
+                continue
+        if (index < self.n) :
+            return (True, index)
+        else : 
+            return (False)
+        
+print("Operation codes : ")
+print("Linear search : 1")
+print("Sentinel search : 2")
+
+choice = 'y'
+
+while (choice == "y") :
+    att_tracker = std_attendance()
+    att_tracker.get_attendance()
+
+    elm = int(input("Enter roll no you want to  check : "))
+    code = int(input("Enter the type of search you want to perform : "))
+
+    if code == 1 : 
+        result = att_tracker.linear_serch(elm)
+        if result[0] == True : 
+            print("Student was present")
+        else : 
+            print("Student was not present")
+
+    elif code == 2 : 
+        result = att_tracker.sentinel_search(elm)
+        if result[0] == True:
+            print("Student is present ")
+        else : 
+            print("Student was absent")
+    choice = input("Do you want to continue ? ")
+
+        

@@ -1,0 +1,68 @@
+
+from numpy import * 
+
+class Marks : 
+
+    def get_result(self) :
+        self.n = int(input("Enter No of students : "))
+        self.marks = zeros((self.n))
+        print("Enter marks scored by students : ")
+        for i in range ( self.n ) :
+            self.marks[i] = float(input())
+    
+    def display_result(self) :
+        print(self.marks)
+
+    def insertion_sort(self) :
+        for i in range (1, self.n) :
+            min = self.marks[i] 
+            for j in range ( i, 0, -1 ) :
+                if self.marks[j-1] > self.marks[j] :
+                    temp = self.marks[j-1]
+                    self.marks[j-1] =  self.marks[j]
+                    self.marks[j] = temp 
+                else : 
+                    break 
+    
+    def shell_sort(self) : 
+        size = self.n 
+        gap = size // 2 
+        
+        while (gap >= 1 ) :
+            for i in range ( gap, size ):
+                min = self.marks[i] 
+                for j in range (i, 0, -gap) :
+                    if ( self.marks[j-gap] > self.marks[j] ):
+                        temp = self.marks[j-gap]
+                        self.marks[j-gap] = self.marks[j]
+                        self.marks[j] = temp
+                    else: 
+                        break 
+            gap = gap // 2 
+
+       
+print("----------------- Menu -----------------")
+print("Insertion sort : 1")
+print("Shell Sort : 2 ")
+
+choice = 'y'
+
+while choice =='y' :
+
+    result = Marks()
+    result.get_result()
+    code = int(input("Enter operation code : "))
+
+    if code == 1 : 
+        result.insertion_sort()
+        result.display_result()
+    
+    elif code == 2 : 
+        result.shell_sort()
+        result.display_result()
+    
+    else : 
+        print("Invalid input")
+    
+    choice = input("Do you want to continue ? ")
+    

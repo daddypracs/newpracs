@@ -1,0 +1,111 @@
+from numpy import * 
+
+class matrix1 : 
+    def __init__(self, rows, columns):
+        self.rows = rows
+        self.columns = columns
+        self.mat = matrix(zeros((rows, columns)))
+
+    def make_matrix(self) :
+        print("Enter elements of matrix : ")
+        for i in range (self.rows) :
+            print("Enter elements of {}th row".format(i+1))
+            for j in range (self.columns) :
+                self.mat[i,j] = int(input())
+
+    def display_matrix(self) :
+        print(self.mat)
+
+    def __add__(self, m2) :
+        m_add = zeros((self.rows, self.columns))
+        for i in range (self.rows) :
+            for j in range (self.columns) :
+                m_add[i,j] = self.mat[i,j] + m2.mat[i,j]
+        return m_add
+
+    def __sub__(self, m2) :
+        m_sub = zeros((self.rows, self.columns))
+        for i in range (self.rows) :
+            for j in range (self.columns):
+                m_sub[i,j] = self.mat[i,j] - m2.mat[i,j]
+        return m_sub
+
+    def __mul__(self, m2):
+        m_mult = zeros((self.rows, m2.columns)) 
+        for i in range (self.rows) :
+            for j in range (m2.columns) :
+                temp = 0
+                for k in range (self.columns) :
+                    temp = temp + self.mat[i,k] * m2.mat[k,j]
+                m_mult[i,j] = temp
+
+        return m_mult
+
+    def make_transpose(self) :
+        transpose = zeros((self.columns, self.rows))
+        for i in range (self.rows):
+            for j in range (self.columns) :
+                transpose[j,i] = self.mat[i,j]
+        return transpose
+
+
+print("------------------ Menu ------------------")
+print("Addition : 1")
+print("Substraction : 2")
+print("Multiplication : 3")
+print("Transpose : 4")
+
+choice = 'y'
+
+while (choice == "y"):
+    code = int(input("Enter operation code : "))
+
+    if code == 1 :
+        row = int(input("Enter No of rows of Matrices : "))
+        column = int(input("Enter no of columns of matrices : "))
+
+        m1 = matrix1(row, column)
+        m2 = matrix1(row, column)
+
+        m1.make_matrix()
+        m2.make_matrix()
+        print("Addition : \n",m1+m2)
+    
+    elif code == 2 : 
+        row = int(input("Enter No of rows of Matrices : "))
+        column = int(input("Enter no of columns of matrices : "))
+
+        m1 = matrix1(row, column)
+        m2 = matrix1(row, column)
+
+        m1.make_matrix()
+        m2.make_matrix()
+        print("Substraction : \n",m1-m2)
+
+    elif code == 3 : 
+        row1 = int(input("Enter no of rows of first matrix : "))
+        column1 = int(input("Enter no of columns of first matrix : "))
+        row2 = int(input("Enter no of rows of second matrix : "))
+        column2 = int(input("Enter no of columns of second matrix : "))
+
+        if column1 != row2 :
+            print("Multiplication is not possible")
+        else :
+            m1 = matrix1(row1, column1)
+            m2 = matrix1(row2, column2)
+            m1.make_matrix()
+            m2.make_matrix()
+            print("Multiplication : \n", m1 * m2) 
+    
+    elif code == 4 : 
+        row = int(input("Enter no of rows : "))
+        column = int(input("Enter no of columns : "))
+        m1 = matrix1(row, column)
+        m1.make_matrix()
+        m2 = m1.make_transpose()
+        print("Transpose : \n", m2)
+
+    choice = input("Do you want to continue ?")
+
+        
+

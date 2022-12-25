@@ -1,0 +1,56 @@
+from numpy import * 
+
+# Creating Class Result
+class Result :
+
+    # function to Take students marks input
+    def get_marks(self) :
+        self.n = int(input("Enter No of students : "))
+
+        # Initialize empty list for marks
+        self.marks_list = [] 
+
+        # Taking input marks
+        print("Enter marks of students one by one : ")
+        for i in range (self.n):
+            self.marks_list.append(float(input()))
+
+    # Function to make partition
+    def partition1(arr, low, high):
+        i = low - 1 
+        pivot = arr[high]
+
+        for j in range ( low, high ) :
+            if ( arr[j] < pivot ) :
+                i = i + 1 
+                (arr[i], arr[j]) = (arr[j], arr[i])
+        
+        (arr[high], arr[i+1]) = (arr[i+1], arr[high])
+
+        return (i+1)
+
+    # Quick sort function
+    def quick_sort(self, low,high) :
+        arr = self.marks_list
+        if ( low < high ) :
+            pivot_index = Result.partition1(self.marks_list,low, high)
+            self.quick_sort(low, pivot_index-1)
+            self.quick_sort(pivot_index + 1, high)
+
+    # Function to display top 5 students
+    def display_top_5(self):
+        print("Marks of Top five students : ")
+        for i in range (5) :
+            print(self.marks_list[self.n - i - 1])
+
+
+# Creating object of class result
+result = Result()
+# Taking marks as an input
+result.get_marks()
+# Sorting marks
+result.quick_sort(0, (result.n - 1))
+# Displaying top 5 marks
+result.display_top_5()
+
+

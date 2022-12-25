@@ -1,0 +1,150 @@
+class Mystring : 
+
+    def generate_word_list(str0) :
+        word_list = []
+        start = 0 
+        for i in range (len(str0)):
+            if str0[i] == " " :
+                word = ""
+                for j in range (start, i) :
+                    word = word + str0[j]
+                word_list.append(word)
+                start = i+1
+            else:
+                continue
+        word_list.append(str0[start: ]) 
+        return word_list
+
+    def __init__(self, string):
+        self.length = 0
+        self.string = string 
+        self.word_list = Mystring.generate_word_list(string)
+        self.char_list = list(string.split())
+        self.length = len(string)
+
+    def get_longest_word(self) :
+        longest_length = 0
+        longest_word = None
+
+        for i in range (len(self.word_list)) :
+            if len(self.word_list[i]) > longest_length :
+                longest_length = len(self.word_list[i])
+                longest_word = self.word_list[i]
+            else : 
+                continue
+        return (longest_word, longest_length)
+
+    def get_char_freq(self, char) :
+        count = 0
+        for i in range (len(self.string)) : 
+            if (self.string[i]== char):
+                count = count + 1 
+
+        return count
+
+    def check_palidrome(self):
+        flag = True 
+        for i in range (0, len(self.string )//2) :
+            l = len(self.string)
+            if self.string[i] != self.string[l-i-1] :
+                flag = False
+                break
+            else :
+                continue
+        if flag == True : 
+            print("String is Palidrome")
+        else : 
+            print("String is not palidrome")
+
+    def first_app_of_substr(self, sub_str): 
+        first_appearance = "Not a part of string "
+        for i in range (len(self.string)) :
+            if self.string[i] == sub_str[0] :
+                flag = True
+                for j in range (0, len(sub_str)) :
+                    if self.string [i+j] != sub_str[j] :
+                        flag = False
+                        break 
+                    else : 
+                        continue
+                if flag == True : 
+                    first_appearance = "First appearance is at {}".format(i)
+                    break
+                else : 
+                    continue
+        return first_appearance
+
+
+    def word_occurance(self):
+        occ_list = []
+        for i in range (0, len(self.word_list)) :
+            count = 0 
+            for j in range (0, len(self.word_list)) :
+                if self.word_list[i] == self.word_list[j] :
+                    count = count + 1
+                else : 
+                    continue
+            occ_list.append(count)
+
+        occ_dict = {}
+        for i in range(0, len(occ_list)) :
+            occ_dict[self.word_list[i]] = occ_list[i]
+        return occ_dict
+
+
+inp_str = input("Enter the string : ")
+
+str1 = Mystring(inp_str)
+
+print("Operations and their codes :  ")
+print("Get word with longest length : 1")
+print("check for palidrome : 2 ")
+print("frequency of particular character : 3")
+print("Display index of first appearance of substring : 4")
+print("Count occurance of each word : 5")
+
+choice = "y"
+
+while (choice == "y") :
+    code = int(input("Enter operation code : "))
+
+    if (code == 1) :
+        print(str1.get_longest_word())
+        
+    
+    elif (code == 2) :
+        print(str1.check_palidrome())
+        
+
+    elif (code == 3):
+        char = input("Enter character : ")
+        print(str1.get_char_freq(inp_str, char))
+        
+
+    elif (code == 4) :
+        sub_str = input("Enter substring : ")
+        print(str1.first_app_of_substr(inp_str, sub_str))
+        
+
+    elif(code == 5) :
+        print(str1.word_occurance(inp_str) )
+        
+
+    else : 
+        print("Invalid operation code")
+
+    choice = input("Do you want to continue ? [y/n]")
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+    
